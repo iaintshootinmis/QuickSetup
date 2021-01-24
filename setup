@@ -22,7 +22,7 @@ errorcheck
 }
 
 installapps(){
-apt install -y guake git thunderbird vim openssh-server buttercup-desktop tldr fprintd libpam-fprintd shellcheck 
+apt install -y guake git transmission thunderbird vim openssh-server buttercup-desktop tldr fprintd libpam-fprintd shellcheck 
 errorcheck
 }
 
