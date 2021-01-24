@@ -1,0 +1,65 @@
+#! /bin/bash 
+
+checkroot(){
+if [ $(whoami) != root ]; then
+	printf "Please re-run with sudo.\n"
+	exit 
+fi
+}
+
+errorcheck(){
+if [ $? -ne 0 ];then
+	printf " An error was encountered\n"
+	exit
+fi
+return
+}
+
+aptupdate(){
+apt autoremove -y && apt autoclean -y && apt update && apt upgrade -y 
+errorcheck
+
+}
+
+installapps(){
+apt install -y guake git thunderbird vim openssh-server buttercup-desktop tldr fprintd libpam-fprintd shellcheck 
+errorcheck
+}
+
+installSignal(){
+which signal-desktop
+if [ $(echo $1) -ne 1 ]; then
+	printf "Signal-Desktop already installed. Skipping\n"
+	return
+fi 
+printf "Installing Signal Desktop Keys\n"
+wget -O- https://updates.signal.org/desktop/apt/keys.asc | sudo apt-key add -
+errorcheck
+printf "Adding Signal Repo\n"
+echo "deb [arch=amd64] https://updates.signal.org/desktop/apt xenial main" | sudo tee -a /etc/apt/sources.list.d/signal-xenial.list
+errorcheck
+printf "Installing Signal Desktop"
+sudo apt update && sudo apt install signal-desktop
+errorcheck
+}
+
+installButtercup(){
+true
+}
+
+Finished(){
+printf "All apps installed successfully.\n"
+read -r -p "Would you like to configure Fingerprint Auth for Sudo? Y/N: " answer
+if [ "$answer" == "Y" ];then
+	fprintd-enroll 
+	read -p "Use the spacebar to activate the Fingerprint Authentication option. Press ENTER to continue"
+pam-auth-update
+fi
+}
+
+checkroot
+aptupdate
+installapps
+installSignal
+#installButtercup
+Finished
