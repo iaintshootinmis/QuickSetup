@@ -22,7 +22,7 @@ errorcheck
 }
 
 installapps(){
-apt install -y nload nethogs speedtest-cli iperf3 wireguard screen mosh nmap netcat nc endlessh ufw guake git transmission thunderbird vim openssh-server buttercup-desktop tldr fprintd libpam-fprintd shellcheck 
+apt install -y nload hping ostinato yersinia mtr nethogs speedtest-cli iperf3 wireguard screen mosh nmap netcat nc endlessh ufw guake git transmission thunderbird vim openssh-server buttercup-desktop tldr fprintd libpam-fprintd shellcheck 
 errorcheck
 }
 
