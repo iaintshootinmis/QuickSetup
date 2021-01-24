@@ -28,7 +28,7 @@ errorcheck
 
 installSignal(){
 which signal-desktop
-if [ $(echo $1) -ne 1 ]; then
+if [ $(echo $?) -ne 1 ]; then
 	printf "Signal-Desktop already installed. Skipping\n"
 	return
 fi 
@@ -41,6 +41,24 @@ errorcheck
 printf "Installing Signal Desktop"
 sudo apt update && sudo apt install signal-desktop
 errorcheck
+}
+
+installHowdy(){
+which howdy
+if [ $(echo $?) -ne 1 ]; then
+	printf "Howdy already installed. Skipping\n"
+	return
+fi
+printf "Adding Repository" 
+add-apt-repository ppa:boltgolt/howdy
+errorcheck
+aptupdate
+errorcheck
+apt install howdy
+errorcheck
+#read -r -p "Do you want to configure howdy now? [Y/n]: " answer
+#if [ "$answer" = "Y" ]; then
+#fi
 }
 
 installButtercup(){
