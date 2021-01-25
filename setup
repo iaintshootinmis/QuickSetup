@@ -4,7 +4,7 @@
 # Contact: me@justinmcafee.com									      #
 # Purpose: To personalize a new instance of the Linux Desktop using a Debian based distro with APT.   #
 # Date: 24JAN2021										      #
-# Revision: 5											      #
+# Revision: 6											      #
 #######################################################################################################
 
 checkroot(){
@@ -29,9 +29,13 @@ errorcheck
 }
 
 installapps(){
-apt install -y nload hping3 ostinato yersinia mtr nethogs speedtest-cli iperf3 wireguard screen mosh spotify-client nmap netcat endlessh ufw guake git transmission thunderbird vim openssh-server tldr fprintd libpam-fprintd shellcheck 
+apt install -y nload hping3 ostinato yersinia mtr nethogs speedtest-cli iperf3 wireguard resolvconf screen mosh spotify-client nmap netcat endlessh ufw guake git transmission thunderbird vim openssh-server tldr fprintd libpam-fprintd shellcheck 
 errorcheck
 }
+
+#
+# Note: resolvconf must be installed if not present. While a cleaner solution would be to check for it, attempting to install it has no negative effects.
+# wireguard should have it as a dependency but doesn't, hence a manual install.
 
 installSignal(){
 which signal-desktop
