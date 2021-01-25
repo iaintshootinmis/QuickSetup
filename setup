@@ -1,4 +1,11 @@
 #! /bin/bash 
+#######################################################################################################
+# Author: Justin McAfee 									      #
+# Contact: me@justinmcafee.com									      #
+# Purpose: To personalize a new instance of the Linux Desktop using a Debian based distro with APT.   #
+# Date: 24JAN2021										      #
+# Revision: 5											      #
+#######################################################################################################
 
 checkroot(){
 if [ $(whoami) != root ]; then
@@ -22,7 +29,7 @@ errorcheck
 }
 
 installapps(){
-apt install -y nload hping ostinato yersinia mtr nethogs speedtest-cli iperf3 wireguard screen mosh nmap netcat nc endlessh ufw guake git transmission thunderbird vim openssh-server buttercup-desktop tldr fprintd libpam-fprintd shellcheck 
+apt install -y nload hping3 ostinato yersinia mtr nethogs speedtest-cli iperf3 wireguard screen mosh spotify-client nmap netcat endlessh ufw guake git transmission thunderbird vim openssh-server tldr fprintd libpam-fprintd shellcheck 
 errorcheck
 }
 
@@ -39,7 +46,7 @@ printf "Adding Signal Repo\n"
 echo "deb [arch=amd64] https://updates.signal.org/desktop/apt xenial main" | sudo tee -a /etc/apt/sources.list.d/signal-xenial.list
 errorcheck
 printf "Installing Signal Desktop"
-sudo apt update && sudo apt install signal-desktop
+sudo apt update && sudo apt install -y signal-desktop
 errorcheck
 }
 
@@ -70,9 +77,14 @@ printf "All apps installed successfully.\n"
 read -r -p "Would you like to configure Fingerprint Auth for Sudo? Y/N: " answer
 if [ "$answer" == "Y" ];then
 	fprintd-enroll 
-	read -p "Use the spacebar to activate the Fingerprint Authentication option. Press ENTER to continue"
-pam-auth-update
+	read -p "Use the spacebar to activate the Fingerprint Authentication option. Press ENTER to continue."
+	pam-auth-update
+elif [ "$answer" == "y" ]; then
+	fprintd-enroll
+	read -p "Use the spacebar to activate the Fingerprint Authentication option. Press Enter to continue."
+	pam-auth-update
 fi
+printf "\n Congratulations, You've successfully configured your new computer.\n Checkout the great features like nmap, guake, and shellcheck!\n"  
 }
 
 checkroot
