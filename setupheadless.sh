@@ -29,7 +29,7 @@ errorcheck
 }
 
 installapps(){
-apt install -y nload hping3 mtr nethogs speedtest-cli iperf3 screen mosh nmap netcat endlessh ufw git transmission vim openssh-server tldr  shellcheck 
+apt install -y sudo nload hping3 mtr nethogs speedtest-cli iperf3 screen mosh nmap netcat endlessh ufw git transmission vim openssh-server tldr  shellcheck 
 errorcheck
 }
 
